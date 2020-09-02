@@ -1,0 +1,34 @@
+sudo: required
+services:
+  - docker
+
+#here we build the dev (test) image of react project
+before_install:
+  - docker build -t andrzejcz/react-test -f ./client/Dockerfile.dev ./client
+
+#test run
+script: 
+  - docker run andrzejcz/react-test npm test -- --coverage
+
+# after test are ok we build the PRD images
+after_success: 
+  - docker build -t andrzejcz/multi-client ./client
+  - docker build -t andrzejcz/multi-nginx ./nginx
+  - docker build -t andrzejcz/multi-server ./server
+  - docker build -t andrzejcz/multi-worker ./worker
+
+# we want to push above images to dockerhub
+#for this purpose 1st we log to docker cli
+# as credentials are used environmental variables
+#echo "$DOCKER_PASSWORD" takes password fm env. variablw and emits it on stdin to next command
+#login -u : username login
+#--password-stdin tells that we will receive passwor over stdin
+
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+# after above login we puh imaged to dockerhub
+
+- docker push andrzejcz/multi-client 
+- docker push andrzejcz/multi-nginx
+- docker push andrzejcz/multi-server
+- docker push andrzejcz/multi-worker
