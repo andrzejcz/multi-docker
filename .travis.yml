@@ -3,6 +3,7 @@ services:
   - docker
 
 #here we build the dev (test) image of react project
+#dodalelm komentarz
 before_install:
   - docker build -t andrzejcz/react-test -f ./client/Dockerfile.dev ./client
 
