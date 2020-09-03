@@ -26,7 +26,7 @@ after_success:
 #--password-stdin tells that we will receive passwor over stdin
 
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-
+#probujemy
 # after above login we puh imaged to dockerhub
 
 - docker push andrzejcz/multi-client 
