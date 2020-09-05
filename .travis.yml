@@ -11,7 +11,7 @@ before_install:
 
 #test run of image created above
 script: 
-  - docker run -e CI=true USERNAME/react-test npm test
+  - docker run -e CI=true andrzejcz/react-test npm test
 
 
 
