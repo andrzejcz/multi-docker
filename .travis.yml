@@ -4,16 +4,20 @@ services:
   - docker
 
 #here we build the dev (test) image of react project
-#dodalelm komentarz
+#andrzejcz below is dockerID
+#build context (files) are taken frm ./client
 before_install:
   - docker build -t andrzejcz/react-test -f ./client/Dockerfile.dev ./client
 
-#test run
+#test run of image created above
 script: 
   - docker run -e CI=true USERNAME/react-test npm test
 
-# after test are ok we build the PRD images
+
+
 after_success: 
+# after test are ok we build the PRD images
+# we take default docker files fm context directories
   - docker build -t andrzejcz/multi-client ./client
   - docker build -t andrzejcz/multi-nginx ./nginx
   - docker build -t andrzejcz/multi-server ./server
@@ -26,13 +30,13 @@ after_success:
 #login -u : username login
 #--password-stdin tells that we will receive passwor over stdin
 
-echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
-# after above login we push images to dockerhub
+# after above login we push images to dockerhub 
 
-- docker push andrzejcz/multi-client 
-- docker push andrzejcz/multi-nginx
-- docker push andrzejcz/multi-server
-- docker push andrzejcz/multi-worker
+  - docker push andrzejcz/multi-client 
+  - docker push andrzejcz/multi-nginx
+  - docker push andrzejcz/multi-server
+  - docker push andrzejcz/multi-worker
 
 
