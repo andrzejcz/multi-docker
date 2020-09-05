@@ -1,3 +1,4 @@
+language: generic
 sudo: required
 services:
   - docker
@@ -25,8 +26,8 @@ after_success:
 #login -u : username login
 #--password-stdin tells that we will receive passwor over stdin
 
-- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-#probujemy
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
 # after above login we push images to dockerhub
 
 - docker push andrzejcz/multi-client 
