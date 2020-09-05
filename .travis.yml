@@ -9,7 +9,7 @@ before_install:
 
 #test run
 script: 
-  - docker run andrzejcz/react-test npm test -- --coverage
+  - docker run -e CI=true USERNAME/react-test npm test
 
 # after test are ok we build the PRD images
 after_success: 
@@ -27,9 +27,11 @@ after_success:
 
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 #probujemy
-# after above login we puh imaged to dockerhub
+# after above login we push images to dockerhub
 
 - docker push andrzejcz/multi-client 
 - docker push andrzejcz/multi-nginx
 - docker push andrzejcz/multi-server
 - docker push andrzejcz/multi-worker
+
+
