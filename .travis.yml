@@ -7,7 +7,7 @@ services:
 #andrzejcz below is dockerID
 #build context (files) are taken frm ./client
 before_install:
-  - docker build -t andrzejcz/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t andrzejcz/react-test -f ./client/dockerfile.dev ./client
 
 #test run of image created above
 script: 
