@@ -38,5 +38,24 @@ after_success:
   - docker push andrzejcz/multi-nginx
   - docker push andrzejcz/multi-server
   - docker push andrzejcz/multi-worker
+#deployment to AWS EBS (entries below are thenEBS specific....)
+deploy: 
+  provider: elasticbeanstalk
+  region: eu-central-1
+  #app: ESB application name (look at ESB dashboard)
+  app: multi-docker
+  #env: ESB environment name
+  env: MultiDocker-env
+  # S3 bucket is the location where Travis sizp the entire project
+  # S3 buckets: this is S3 bucket associated with ESB (where ESB stores data)
+  bucket_name: elasticbeanstalk-eu-central-1-364771153382
+  #bucket path was not explained; just has been called docker-multi
+  bucket_path: docker-multi
+  #where to run the deployment
+  on: 
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: 
+    secure: $AWS_SECRET_KEY
 
 
