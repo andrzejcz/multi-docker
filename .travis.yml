@@ -45,7 +45,7 @@ deploy:
   region: 'eu-central-1'
   #app: ESB application name (look at ESB dashboard)
   app: 'multi-docker'
-  #env: ESB environment name
+  #env: ESB environment name  kk
   env: 'MultiDocker-env'
   # S3 bucket is the location where Travis sizp the entire project
   # S3 buckets: this is S3 bucket associated with ESB (where ESB stores data)
